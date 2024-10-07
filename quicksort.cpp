@@ -9,7 +9,8 @@ NOMES:
 
 CONSEGUIU CHEGAR NO RESULTADO?
 R: Sim, conseguimos chegar ao resultado dos gráficos
-   e inclusive tornar o código mais eficiente.
+   e inclusive tornar o código mais eficiente, 
+   principalmente para vetores já ordenados ou semi ordenados.
 
 */
 
@@ -68,28 +69,6 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 int quantComparacoes = 0;
 int quantTrocas = 0;
 
-void swap(int *a, int *b){
-    int aux = *a;
-    *a = *b;
-    *b = aux;
-}
-
-int median3(int vet[], int ini, int fim){
-    int meio = ini + (fim - ini) / 2;
-
-    if (vet[ini] > vet[meio])
-        swap(&vet[ini], &vet[meio]);
-
-    if (vet[ini] > vet[fim])
-        swap(&vet[ini], &vet[fim]);
-
-    if (vet[meio] > vet[fim])
-        swap(&vet[meio], &vet[fim]);
-
-    return vet[meio];
-}
-
-
 // Função que ordena um vetor com o algoritmo quick sort
 // Recebe como parâmetro o vetor que será ordenado
 // o índice do início e do fim da parte do vetor que será ordenada
@@ -100,7 +79,7 @@ void quickSort(int vet[], int ini, int fim){
     // porque tende a evitar que o pivô seja o maior ou menor número do vetor
     // int pivo = vet[ini + (fim-ini) / 2];
     // int pivo = median3(vet, ini, fim);
-    int pivo =  ini + rand() % (fim - ini + 1);
+    int pivo =  ini + (fim - ini) / 2;
 
     // Variáveis i e j para percorrer o vetor
     // i começa no primeiro elemento da parte do vetor a ser ordenada
