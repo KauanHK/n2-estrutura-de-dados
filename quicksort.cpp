@@ -68,6 +68,28 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 int quantComparacoes = 0;
 int quantTrocas = 0;
 
+void swap(int *a, int *b){
+    int aux = *a;
+    *a = *b;
+    *b = aux;
+}
+
+int median3(int vet[], int ini, int fim){
+    int meio = ini + (fim - ini) / 2;
+
+    if (vet[ini] > vet[meio])
+        swap(&vet[ini], &vet[meio]);
+
+    if (vet[ini] > vet[fim])
+        swap(&vet[ini], &vet[fim]);
+
+    if (vet[meio] > vet[fim])
+        swap(&vet[meio], &vet[fim]);
+
+    return vet[meio];
+}
+
+
 // Função que ordena um vetor com o algoritmo quick sort
 // Recebe como parâmetro o vetor que será ordenado
 // o índice do início e do fim da parte do vetor que será ordenada
@@ -76,7 +98,9 @@ void quickSort(int vet[], int ini, int fim){
     // Escolha de um pivô para fazer as comparações
     // A escolha do pivô como o elemento do meio é vantajosa
     // porque tende a evitar que o pivô seja o maior ou menor número do vetor
-    int pivo = vet[ini + (fim-ini) / 2];
+    // int pivo = vet[ini + (fim-ini) / 2];
+    // int pivo = median3(vet, ini, fim);
+    int pivo =  ini + rand() % (fim - ini + 1);
 
     // Variáveis i e j para percorrer o vetor
     // i começa no primeiro elemento da parte do vetor a ser ordenada
@@ -94,18 +118,26 @@ void quickSort(int vet[], int ini, int fim){
         // maior do que o pivô e que esteja antes do pivô
         // i percorre o vetor do início em direção ao fim
         // i não pode ultrapassar o índice do fim
-        while (vet[i] < pivo && i < fim){
+        while (vet[i] < pivo){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             i++;  // Avança para o próximo número à direita
+        }
+
+        if (i >= fim){
+            break;
         }
 
         // Loop para encontrar um elemento que seja
         // menor do que o pivô e que esteja depois do pivô
         // j percorre o vetor do fim em direção ao início
         // j não pode ser menor do que o índice do início
-        while (vet[j] > pivo && j > ini){
+        while (vet[j] > pivo){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             j--;  // Avança para o próximo número à esquerda
+        }
+
+        if (j <= ini){
+            break;
         }
 
         // Neste ponto, vet[i] é um número maior do que o pivô
