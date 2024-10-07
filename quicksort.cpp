@@ -72,14 +72,13 @@ int quantTrocas = 0;
 // Função que ordena um vetor com o algoritmo quick sort
 // Recebe como parâmetro o vetor que será ordenado
 // o índice do início e do fim da parte do vetor que será ordenada
-void quickSort(int vet[], int ini, int fim){
+int partition(int vet[], int ini, int fim){
 
     // Escolha de um pivô para fazer as comparações
     // A escolha do pivô como o elemento do meio é vantajosa
     // porque tende a evitar que o pivô seja o maior ou menor número do vetor
-    // int pivo = vet[ini + (fim-ini) / 2];
-    // int pivo = median3(vet, ini, fim);
-    int pivo =  ini + (fim - ini) / 2;
+    // minimizando a chance de cair no caso O(n²)
+    int pivo =  vet[ini + (fim - ini) / 2];
 
     // Variáveis i e j para percorrer o vetor
     // i começa no primeiro elemento da parte do vetor a ser ordenada
@@ -94,50 +93,40 @@ void quickSort(int vet[], int ini, int fim){
     while (true){
 
         // Loop para encontrar um elemento que seja
-        // maior do que o pivô e que esteja antes do pivô
+        // maior do que o pivô
         // i percorre o vetor do início em direção ao fim
-        // i não pode ultrapassar o índice do fim
         while (vet[i] < pivo){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             i++;  // Avança para o próximo número à direita
         }
 
-        if (i >= fim){
-            break;
-        }
-
         // Loop para encontrar um elemento que seja
-        // menor do que o pivô e que esteja depois do pivô
+        // menor do que o pivô
         // j percorre o vetor do fim em direção ao início
-        // j não pode ser menor do que o índice do início
         while (vet[j] > pivo){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             j--;  // Avança para o próximo número à esquerda
-        }
-
-        if (j <= ini){
-            break;
         }
 
         // Neste ponto, vet[i] é um número maior do que o pivô
         // e vet[j] um número menor do que o pivô
         // O loop deve ser interrompido caso i seja maior ou igual a j
 
-
         // Caso i seja maior ou igual a j, então todo o vetor já foi percorrido
         if (i >= j){
-            break;
-        }
+			break;
+		}
 
         // Se o código chegou aqui, então i e j ainda não se cruzaram
         // vet[i] é um número maior do que o pivô e que está à esquerda dele
-        // vet[ij] é um número menor do que o pivô e que está à direita dele
+        // vet[j] é um número menor do que o pivô e que está à direita dele
         // Os valores de vet[i] e vet[j] devem ser trocados
-        quantTrocas++;  // Adiciona mais uma troca à contagem
         int aux = vet[i];  // Uso de uma variável auxiliar para fazer a troca
         vet[i] = vet[j];
         vet[j] = aux;
-
+        quantTrocas++;  // Adiciona mais uma troca à contagem
+        i++;
+        j--;
     }
 
     // Neste ponto, todos os números menores do que o pivô estão à sua esquerda
@@ -145,22 +134,30 @@ void quickSort(int vet[], int ini, int fim){
 
     // O algoritmo então é chamado recursivamente para ordenar a parte à direita e à esquerda da partição
     // A partição pode ser tanto i quanto j, pois tem o mesmo valor
-    // A parte à esquerda é do início até i (incluindo i)
-    // A parte à direita é de i+1 até o fim
+    // A parte à esquerda é do início até a partição (inclusa)
+    // A parte à direita é de partição+1 até o fim
 
-    // Ordena a parte à esquerda da partição se i não for o início
-    // Se i for o início, então o número já está no seu devido lugar
-    // e não é necessário chamar a função novamente
-    if (i > ini){
-    quickSort(vet, ini, i);
+    // Retornar a partição
+    return i;
+}
+
+
+void quickSort(int vet[], int ini, int fim){
+
+    // Condição de para é se início for igual ou menor ao fim,
+    // o que significa que essa parte do vetor já está ordenada
+    if (ini < fim){
+
+        // Pega a partição
+        int p = partition(vet, ini, fim);
+
+        // Ordena a parte à esquerda da partição, de início até a partição (inclusa)
+        quickSort(vet, ini, p);
+
+        // Ordena a parte à direita da partição, da partição+1 até fim
+        quickSort(vet, p+1, fim);
     }
 
-    // Aqui será organizada a parte direita, começando por i+1
-    // Se i+1 for igual ao fim, o número já está no seu devido lugar
-    // e não é necessário chamar a função novamente
-    if (i+1 < fim){
-        quickSort(vet, i+1, fim);
-    }
 }
 
 
@@ -170,12 +167,12 @@ int main(){
     int n = 50000;
     int vet[n];
     gera_vetor_aleatorio(vet, n);
-    // gera_vetor_ordenado_ASC(vet, n);
-    // gera_vetor_ordenado_DESC(vet, n);
-    // imprime_vetor(vet,n);
+//     gera_vetor_ordenado_ASC(vet, n);
+//     gera_vetor_ordenado_DESC(vet, n);
+//     imprime_vetor(vet,n);
 
     // Tempo inicial da execução
-    float t = clock();
+    clock_t t = clock();
 
     // Ordenar vetor
     // Do índice 0 até o último para ordenar todo o vetor
@@ -185,10 +182,10 @@ int main(){
     t = clock() - t;
 
     // Exibir tempo de execução, número de comparações e de trocas
-    printf("Tempo de execução: %.3f ms\n", t/1000);  // Exibir em ms
+//    imprime_vetor(vet, n);
+    printf("Tempo de execucao: %li ms\n", t);  // Exibir em ms
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n", quantTrocas);
-    // imprime_vetor(vet, n);
 
 
     return 0;
