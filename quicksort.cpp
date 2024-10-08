@@ -107,6 +107,7 @@ int partition(int vet[], int ini, int fim){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             j--;  // Avança para o próximo número à esquerda
         }
+        
 
         // Neste ponto, vet[i] é um número maior do que o pivô
         // e vet[j] um número menor do que o pivô
@@ -114,7 +115,7 @@ int partition(int vet[], int ini, int fim){
 
         // Caso i seja maior ou igual a j, então todo o vetor já foi percorrido
         if (i >= j){
-			break;
+			return i;
 		}
 
         // Se o código chegou aqui, então i e j ainda não se cruzaram
@@ -138,7 +139,6 @@ int partition(int vet[], int ini, int fim){
     // A parte à direita é de partição+1 até o fim
 
     // Retornar a partição
-    return i;
 }
 
 
@@ -152,7 +152,7 @@ void quickSort(int vet[], int ini, int fim){
         int p = partition(vet, ini, fim);
 
         // Ordena a parte à esquerda da partição, de início até a partição (inclusa)
-        quickSort(vet, ini, p);
+        quickSort(vet, ini, p-1);
 
         // Ordena a parte à direita da partição, da partição+1 até fim
         quickSort(vet, p+1, fim);
@@ -182,7 +182,7 @@ int main(){
     t = clock() - t;
 
     // Exibir tempo de execução, número de comparações e de trocas
-//    imprime_vetor(vet, n);
+    imprime_vetor(vet, n);
     printf("Tempo de execucao: %li ms\n", t);  // Exibir em ms
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n", quantTrocas);
