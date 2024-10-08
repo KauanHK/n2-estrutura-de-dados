@@ -31,6 +31,10 @@ class Grafico:
                 cor = VERMELHO
             else:
                 cor = VERDE
+
+            if self.vet[k-1] > self.vet[k]:
+                cor = AQUA
+
             pygame.draw.rect(self.screen, cor, (x, down - num, width, num))
             x += width + 2
 
@@ -73,17 +77,17 @@ class Grafico:
         while True:
 
             while (self.vet[i] < pivo):
-                self.exibir(i,j, pivo)
+                # self.exibir(i,j, pivo)
                 self.comparacoes += 1
                 i += 1
             
             while (self.vet[j] > pivo):
-                self.exibir(i,j, pivo)
+                # self.exibir(i,j, pivo)
                 self.comparacoes += 1
                 j -= 1
 
             if i == j:
-                if counter == 0:
+                if counter == 0 and fim - ini > 5:
                     return
                 break
                 
@@ -92,13 +96,13 @@ class Grafico:
             if i >= j:
                 break
             
-            self.exibir(i,j, pivo)
+            # self.exibir(i,j, pivo)
 
             self.vet[i], self.vet[j] = self.vet[j], self.vet[i]
             self.trocas += 1
 
 
-            self.exibir(i,j, pivo)
+            # self.exibir(i,j, pivo)
 
         if i > ini:
             self._qs(ini, i)

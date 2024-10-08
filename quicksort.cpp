@@ -74,6 +74,10 @@ int quantTrocas = 0;
 // o ?ndice do in?cio e do fim da parte do vetor que ser? ordenada
 void quickSort(int vet[], int ini, int fim){
 
+    if (ini >= fim){
+        return;
+    }
+
     // Escolha de um piv? para fazer as compara??es
     // A escolha do piv? como o elemento do meio ? vantajosa
     // porque tende a evitar que o piv? seja o maior ou menor n?mero do vetor
@@ -116,12 +120,15 @@ void quickSort(int vet[], int ini, int fim){
         // e vet[j] um n?mero menor do que o piv?
         // O loop deve ser interrompido caso i seja maior ou igual a j
 
+        
         // Caso i seja maior ou igual a j, ent?o todo o vetor j? foi percorrido
+
+
         if (i == j){
-            
-            if (counter == 0){
+
+            if (counter == 0 && i == ini + (fim - ini)/2 && fim - ini > 17){
                 return;
-            } 
+            }
 
             break;
 
@@ -161,14 +168,29 @@ void quickSort(int vet[], int ini, int fim){
     }
 }
 
+// Função para testes para validar se o vetor está 100% ordenado
+bool validar(int *vet, int n){
+
+    bool ordenado = true;
+    for (int i = 1; i < n; i++){
+        if (vet[i-1] > vet[i]){
+            printf("Erro: %d antes de %d\n", vet[i-1], vet[i]);
+            ordenado = false;
+        }
+    }
+    if (ordenado){
+        printf("Vetor ordenado com sucesso\n");
+    }
+    return ordenado;
+}
 
 int main(){
 
     // Gerar um vetor com 50000 n?meros
     int n = 50000;
     int vet[n];
-    // gera_vetor_aleatorio(vet, n);
-    gera_vetor_ordenado_ASC(vet, n);
+    gera_vetor_aleatorio(vet, n);
+    // gera_vetor_ordenado_ASC(vet, n);
     // gera_vetor_ordenado_DESC(vet, n);
     // imprime_vetor(vet,n);
 
@@ -187,6 +209,16 @@ int main(){
     printf("Tempo de execucao: %.3f ms\n", t/1000);  // Exibir em ms
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n", quantTrocas);
+    // imprime_vetor(vet, n);
+    validar(vet, n);
+
+    for (int i = 0; i < 1000; i++){
+        gera_vetor_aleatorio(vet, n);
+        quickSort(vet, 0, n-1);
+        if (!validar(vet, n)){
+            break;
+        }
+    }
 
 
     return 0;

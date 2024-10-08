@@ -18,6 +18,9 @@ grafico = Grafico(
     vet=numeros
     )
 
+font = pygame.font.Font(None, 120)
+show_fps = False
+
 fps = 60
 rodando = True
 while rodando:
@@ -43,10 +46,24 @@ while rodando:
             elif event.key == pygame.K_q:
                 grafico.sort()
 
+            elif event.key == pygame.K_UP:
+                grafico.fps += 1 if grafico.fps < 60 else 0
+
+            elif event.key == pygame.K_DOWN:
+                grafico.fps -= 1 if grafico.fps > 1 else 0
+
+            elif event.key == pygame.K_f:
+                show_fps = not show_fps
+
 
     screen.fill(PRETO)
 
+        
     grafico.exibir()
+
+    if show_fps:
+        txt = font.render(str(grafico.fps), False, BRANCO)
+        screen.blit(txt, screen.get_rect().center)
 
     clock.tick(fps)
     pygame.display.flip()
