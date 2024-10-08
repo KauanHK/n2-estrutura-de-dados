@@ -8,7 +8,7 @@ pygame.init()
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 
-velocidade = 15
+velocidade = 60
 numeros = [n for n in range(7, 700, 14)]
 
 grafico = Grafico(

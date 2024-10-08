@@ -69,6 +69,7 @@ class Grafico:
         i = ini
         j = fim
         counter = 0
+
         while True:
 
             while (self.vet[i] < pivo):
@@ -80,10 +81,12 @@ class Grafico:
                 self.exibir(i,j, pivo)
                 self.comparacoes += 1
                 j -= 1
-            
-            if counter == 0 and i == j:
-                return
-            
+
+            if i == j:
+                if counter == 0:
+                    return
+                break
+                
             counter += 1
 
             if i >= j:
@@ -96,7 +99,6 @@ class Grafico:
 
 
             self.exibir(i,j, pivo)
-
 
         if i > ini:
             self._qs(ini, i)

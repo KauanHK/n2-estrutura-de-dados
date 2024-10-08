@@ -121,9 +121,9 @@ void quickSort(int vet[], int ini, int fim){
             
             if (counter == 0){
                 return;
-            } else {
-                break;
-            }
+            } 
+
+            break;
 
         }
         counter++;
@@ -165,7 +165,7 @@ void quickSort(int vet[], int ini, int fim){
 int main(){
 
     // Gerar um vetor com 50000 n?meros
-    int n = 50000;
+    int n = 50;
     int vet[n];
     // gera_vetor_aleatorio(vet, n);
     // gera_vetor_ordenado_ASC(vet, n);
