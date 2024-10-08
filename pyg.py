@@ -8,7 +8,7 @@ pygame.init()
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 
-velocidade = 60
+velocidade = 15
 numeros = [n for n in range(7, 700, 14)]
 
 grafico = Grafico(
@@ -62,7 +62,7 @@ while rodando:
     grafico.exibir()
 
     if show_fps:
-        txt = font.render(str(grafico.fps), False, BRANCO)
+        txt = font.render(str(grafico.fps), False, BRANCO, PRETO)
         screen.blit(txt, screen.get_rect().center)
 
     clock.tick(fps)
