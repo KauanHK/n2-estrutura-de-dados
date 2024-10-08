@@ -169,18 +169,26 @@ void quickSort(int vet[], int ini, int fim){
 }
 
 // Função para testes para validar se o vetor está 100% ordenado
-bool validar(int *vet, int n){
+bool validar(int *vet, int n, int numTestes){
 
-    bool ordenado = true;
-    for (int i = 1; i < n; i++){
-        if (vet[i-1] > vet[i]){
-            printf("Erro: %d antes de %d\n", vet[i-1], vet[i]);
-            ordenado = false;
-        }
+    bool ordenado;
+	for (int i = 0; i < numTestes; i++){
+		printf("%d      \r", i);
+		gera_vetor_aleatorio(vet, n);
+		quickSort(vet, 0, n-1);
+		ordenado = true;
+	    for (int i = 1; i < n; i++){
+	        if (vet[i-1] > vet[i]){
+	            printf("Erro: %d antes de %d\n", vet[i-1], vet[i]);
+	            ordenado = false;
+	        }
+	    }
+	    if (!ordenado){
+		    printf("Falha ao ordenar vetor\n");
+		    return false;
+		}
     }
-    if (ordenado){
-        printf("Vetor ordenado com sucesso\n");
-    }
+    printf("Foram ordenados %d vetores com sucesso\n", numTestes);
     return ordenado;
 }
 
@@ -210,15 +218,7 @@ int main(){
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n", quantTrocas);
     // imprime_vetor(vet, n);
-    validar(vet, n);
-
-    for (int i = 0; i < 1000; i++){
-        gera_vetor_aleatorio(vet, n);
-        quickSort(vet, 0, n-1);
-        if (!validar(vet, n)){
-            break;
-        }
-    }
+//    validar(vet, n, 1000);
 
 
     return 0;
