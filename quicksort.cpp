@@ -165,11 +165,11 @@ void quickSort(int vet[], int ini, int fim){
 int main(){
 
     // Gerar um vetor com 50000 n?meros
-    int n = 50;
+    int n = 50000;
     int vet[n];
     // gera_vetor_aleatorio(vet, n);
-    // gera_vetor_ordenado_ASC(vet, n);
-    gera_vetor_ordenado_DESC(vet, n);
+    gera_vetor_ordenado_ASC(vet, n);
+    // gera_vetor_ordenado_DESC(vet, n);
     // imprime_vetor(vet,n);
 
     // Tempo inicial da execu??o
