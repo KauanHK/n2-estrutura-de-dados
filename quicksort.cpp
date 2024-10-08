@@ -79,19 +79,20 @@ void quickSort(int vet[], int ini, int fim){
     // porque tende a evitar que o piv? seja o maior ou menor n?mero do vetor
     // int pivo = vet[ini + (fim-ini) / 2];
     // int pivo = median3(vet, ini, fim);
-    int pivo =  ini + (fim - ini) / 2;
+    int pivo =  vet[ini + (fim - ini) / 2];
 
     // Vari?veis i e j para percorrer o vetor
     // i come?a no primeiro elemento da parte do vetor a ser ordenada
     // j come?a no ?ltimo elemento da parte do vetor a ser ordenada
     int i = ini;
     int j = fim;
+    int counter = 0;
 
     // Este loop while controla a parti??o
     // Ao final do loop, os n?meros que s?o maiores do que o piv?
     // estar?o ? sua esquerda, e os maiores ? sua direita
     // A condi??o de parada ? quando i for maior ou igual a j
-    while (true){
+    while (i < j){
 
         // Loop para encontrar um elemento que seja
         // maior do que o piv? e que esteja antes do piv?
@@ -115,11 +116,17 @@ void quickSort(int vet[], int ini, int fim){
         // e vet[j] um n?mero menor do que o piv?
         // O loop deve ser interrompido caso i seja maior ou igual a j
 
-
         // Caso i seja maior ou igual a j, ent?o todo o vetor j? foi percorrido
-        if (i >= j){
-            break;
+        if (i == j){
+            
+            if (counter == 0){
+                return;
+            } else {
+                break;
+            }
+
         }
+        counter++;
 
         // Se o c?digo chegou aqui, ent?o i e j ainda n?o se cruzaram
         // vet[i] ? um n?mero maior do que o piv? e que est? ? esquerda dele
@@ -129,7 +136,6 @@ void quickSort(int vet[], int ini, int fim){
         int aux = vet[i];  // Uso de uma vari?vel auxiliar para fazer a troca
         vet[i] = vet[j];
         vet[j] = aux;
-
     }
 
     // Neste ponto, todos os n?meros menores do que o piv? est?o ? sua esquerda
@@ -161,9 +167,9 @@ int main(){
     // Gerar um vetor com 50000 n?meros
     int n = 50000;
     int vet[n];
-    gera_vetor_aleatorio(vet, n);
+    // gera_vetor_aleatorio(vet, n);
     // gera_vetor_ordenado_ASC(vet, n);
-    // gera_vetor_ordenado_DESC(vet, n);
+    gera_vetor_ordenado_DESC(vet, n);
     // imprime_vetor(vet,n);
 
     // Tempo inicial da execu??o
@@ -177,8 +183,8 @@ int main(){
     t = clock() - t;
 
     // Exibir tempo de execu??o, n?mero de compara??es e de trocas
-     imprime_vetor(vet, n);
-    printf("Tempo de execu??o: %.3f ms\n", t/1000);  // Exibir em ms
+    // imprime_vetor(vet, n);
+    printf("Tempo de execucao: %.3f ms\n", t/1000);  // Exibir em ms
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n", quantTrocas);
 
