@@ -1,5 +1,5 @@
 /*
-PROCESSO AVALIATIVO N2 ‚Äì ESTRUTURA DE DADOS
+PROCESSO AVALIATIVO N2 ñ ESTRUTURA DE DADOS
 
 EQUIPE
 NOMES:
@@ -8,9 +8,9 @@ NOMES:
     Ricardo Cardoso
 
 CONSEGUIU CHEGAR NO RESULTADO?
-R: Sim, conseguimos chegar ao resultado dos gr√°ficos
-   e inclusive tornar o c√≥digo mais eficiente, 
-   principalmente para vetores j√° ordenados ou semi ordenados.
+R: Sim, conseguimos chegar ao resultado dos gr·ficos
+   e inclusive tornar o cÛdigo mais eficiente, 
+   principalmente para vetores j· ordenados ou semi ordenados.
 
 */
 
@@ -27,14 +27,14 @@ void imprime_vetor(int *vetor, int total){
 	printf("\n");
 }
 
-//gera um vetor ordenado de forma crescente e sem repeti√ß√£o [MELHOR CASO]
+//gera um vetor ordenado de forma crescente e sem repetiÁ„o [MELHOR CASO]
 void gera_vetor_ordenado_ASC(int *vetor, int n) {
 	for(int i = 0; i < n; i++){
 		vetor[i] = i;
 	}
 }
 
-//gera um vetor ordenado de forma DEcrescente e sem repeti√ß√£o [PIOR CASO]
+//gera um vetor ordenado de forma DEcrescente e sem repetiÁ„o [PIOR CASO]
 void gera_vetor_ordenado_DESC(int *vetor, int n) {
 	int j = n - 1;
 	for(int i = 0; i < n; i++){
@@ -42,7 +42,7 @@ void gera_vetor_ordenado_DESC(int *vetor, int n) {
 	}
 }
 
-//gera um vetor ordenado de forma aleat√≥ria e sem repeti√ß√£o [CASO M√âDIO]
+//gera um vetor ordenado de forma aleatÛria e sem repetiÁ„o [CASO M…DIO]
 void gera_vetor_aleatorio(int *vetor, int n) {
 	int j, aux;
 	
@@ -54,9 +54,9 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 	
 	//aplica o algoritmo de Fisher-Yates
 	for(int i = 0; i < n; i++){
-		// gera um n√∫mero randomico de 0 a n -1
+		// gera um n˙mero randomico de 0 a n -1
 		j = rand() % n;
-		// troca de posi√ß√£o
+		// troca de posiÁ„o
 		aux = vetor[i];
 		vetor[i] = vetor[j];
 		vetor[j] = aux;
@@ -64,126 +64,129 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 }
 
 
-// Declarando as vari√°veis globais que armazenar√£o
-// o n√∫mero de comapara√ß√µes e de trocas feitas durante a ordena√ß√£o
+// Declarando as vari·veis globais que armazenar„o
+// o n˙mero de comaparaÁıes e de trocas feitas durante a ordenaÁ„o
 int quantComparacoes = 0;
 int quantTrocas = 0;
 
-// Fun√ß√£o que ordena um vetor com o algoritmo quick sort
-// Recebe como par√¢metro o vetor que ser√° ordenado
-// o √≠ndice do in√≠cio e do fim da parte do vetor que ser√° ordenada
-int partition(int vet[], int ini, int fim){
+// FunÁ„o que ordena um vetor com o algoritmo quick sort
+// Recebe como par‚metro o vetor que ser· ordenado
+// o Ìndice do inÌcio e do fim da parte do vetor que ser· ordenada
+void quickSort(int vet[], int ini, int fim){
 
-    // Escolha de um piv√¥ para fazer as compara√ß√µes
-    // A escolha do piv√¥ como o elemento do meio √© vantajosa
-    // porque tende a evitar que o piv√¥ seja o maior ou menor n√∫mero do vetor
-    // minimizando a chance de cair no caso O(n¬≤)
-    int pivo =  vet[ini + (fim - ini) / 2];
+    // Escolha de um pivÙ para fazer as comparaÁıes
+    // A escolha do pivÙ como o elemento do meio È vantajosa
+    // porque tende a evitar que o pivÙ seja o maior ou menor n˙mero do vetor
+    // int pivo = vet[ini + (fim-ini) / 2];
+    // int pivo = median3(vet, ini, fim);
+    int pivo =  ini + (fim - ini) / 2;
 
-    // Vari√°veis i e j para percorrer o vetor
-    // i come√ßa no primeiro elemento da parte do vetor a ser ordenada
-    // j come√ßa no √∫ltimo elemento da parte do vetor a ser ordenada
+    // Vari·veis i e j para percorrer o vetor
+    // i comeÁa no primeiro elemento da parte do vetor a ser ordenada
+    // j comeÁa no ˙ltimo elemento da parte do vetor a ser ordenada
     int i = ini;
     int j = fim;
 
-    // Este loop while controla a parti√ß√£o
-    // Ao final do loop, os n√∫meros que s√£o maiores do que o piv√¥
-    // estar√£o √† sua esquerda, e os maiores √† sua direita
-    // A condi√ß√£o de parada √© quando i for maior ou igual a j
+    // Este loop while controla a partiÁ„o
+    // Ao final do loop, os n˙meros que s„o maiores do que o pivÙ
+    // estar„o ‡ sua esquerda, e os maiores ‡ sua direita
+    // A condiÁ„o de parada È quando i for maior ou igual a j
     while (true){
 
         // Loop para encontrar um elemento que seja
-        // maior do que o piv√¥
-        // i percorre o vetor do in√≠cio em dire√ß√£o ao fim
+        // maior do que o pivÙ e que esteja antes do pivÙ
+        // i percorre o vetor do inÌcio em direÁ„o ao fim
+        // i n„o pode ultrapassar o Ìndice do fim
         while (vet[i] < pivo){
-            quantComparacoes++;  // Adiciona mais uma compara√ß√£o √† contagem
-            i++;  // Avan√ßa para o pr√≥ximo n√∫mero √† direita
+            quantComparacoes++;  // Adiciona mais uma comparaÁ„o ‡ contagem
+            i++;  // AvanÁa para o prÛximo n˙mero ‡ direita
+        }
+
+        if (i >= fim){
+            break;
         }
 
         // Loop para encontrar um elemento que seja
-        // menor do que o piv√¥
-        // j percorre o vetor do fim em dire√ß√£o ao in√≠cio
+        // menor do que o pivÙ e que esteja depois do pivÙ
+        // j percorre o vetor do fim em direÁ„o ao inÌcio
+        // j n„o pode ser menor do que o Ìndice do inÌcio
         while (vet[j] > pivo){
-            quantComparacoes++;  // Adiciona mais uma compara√ß√£o √† contagem
-            j--;  // Avan√ßa para o pr√≥ximo n√∫mero √† esquerda
+            quantComparacoes++;  // Adiciona mais uma comparaÁ„o ‡ contagem
+            j--;  // AvanÁa para o prÛximo n˙mero ‡ esquerda
         }
-        
 
-        // Neste ponto, vet[i] √© um n√∫mero maior do que o piv√¥
-        // e vet[j] um n√∫mero menor do que o piv√¥
+        if (j <= ini){
+            break;
+        }
+
+        // Neste ponto, vet[i] È um n˙mero maior do que o pivÙ
+        // e vet[j] um n˙mero menor do que o pivÙ
         // O loop deve ser interrompido caso i seja maior ou igual a j
 
-        // Caso i seja maior ou igual a j, ent√£o todo o vetor j√° foi percorrido
-        if (i >= j){
-			return i;
-		}
 
-        // Se o c√≥digo chegou aqui, ent√£o i e j ainda n√£o se cruzaram
-        // vet[i] √© um n√∫mero maior do que o piv√¥ e que est√° √† esquerda dele
-        // vet[j] √© um n√∫mero menor do que o piv√¥ e que est√° √† direita dele
+        // Caso i seja maior ou igual a j, ent„o todo o vetor j· foi percorrido
+        if (i >= j){
+            break;
+        }
+
+        // Se o cÛdigo chegou aqui, ent„o i e j ainda n„o se cruzaram
+        // vet[i] È um n˙mero maior do que o pivÙ e que est· ‡ esquerda dele
+        // vet[ij] È um n˙mero menor do que o pivÙ e que est· ‡ direita dele
         // Os valores de vet[i] e vet[j] devem ser trocados
-        int aux = vet[i];  // Uso de uma vari√°vel auxiliar para fazer a troca
+        quantTrocas++;  // Adiciona mais uma troca ‡ contagem
+        int aux = vet[i];  // Uso de uma vari·vel auxiliar para fazer a troca
         vet[i] = vet[j];
         vet[j] = aux;
-        quantTrocas++;  // Adiciona mais uma troca √† contagem
-        i++;
-        j--;
+
     }
 
-    // Neste ponto, todos os n√∫meros menores do que o piv√¥ est√£o √† sua esquerda
-    // e os maiores √† sua direita
+    // Neste ponto, todos os n˙meros menores do que o pivÙ est„o ‡ sua esquerda
+    // e os maiores ‡ sua direita
 
-    // O algoritmo ent√£o √© chamado recursivamente para ordenar a parte √† direita e √† esquerda da parti√ß√£o
-    // A parti√ß√£o pode ser tanto i quanto j, pois tem o mesmo valor
-    // A parte √† esquerda √© do in√≠cio at√© a parti√ß√£o (inclusa)
-    // A parte √† direita √© de parti√ß√£o+1 at√© o fim
+    // O algoritmo ent„o È chamado recursivamente para ordenar a parte ‡ direita e ‡ esquerda da partiÁ„o
+    // A partiÁ„o pode ser tanto i quanto j, pois tem o mesmo valor
+    // A parte ‡ esquerda È do inÌcio atÈ i (incluindo i)
+    // A parte ‡ direita È de i+1 atÈ o fim
 
-    // Retornar a parti√ß√£o
-}
-
-
-void quickSort(int vet[], int ini, int fim){
-
-    // Condi√ß√£o de para √© se in√≠cio for igual ou menor ao fim,
-    // o que significa que essa parte do vetor j√° est√° ordenada
-    if (ini < fim){
-
-        // Pega a parti√ß√£o
-        int p = partition(vet, ini, fim);
-
-        // Ordena a parte √† esquerda da parti√ß√£o, de in√≠cio at√© a parti√ß√£o (inclusa)
-        quickSort(vet, ini, p-1);
-
-        // Ordena a parte √† direita da parti√ß√£o, da parti√ß√£o+1 at√© fim
-        quickSort(vet, p+1, fim);
+    // Ordena a parte ‡ esquerda da partiÁ„o se i n„o for o inÌcio
+    // Se i for o inÌcio, ent„o o n˙mero j· est· no seu devido lugar
+    // e n„o È necess·rio chamar a funÁ„o novamente
+    if (i > ini){
+    quickSort(vet, ini, i);
     }
 
+    // Aqui ser· organizada a parte direita, comeÁando por i+1
+    // Se i+1 for igual ao fim, o n˙mero j· est· no seu devido lugar
+    // e n„o È necess·rio chamar a funÁ„o novamente
+    if (i+1 < fim){
+        quickSort(vet, i+1, fim);
+    }
 }
 
 
 int main(){
 
-    // Gerar um vetor com 50000 n√∫meros
+    // Gerar um vetor com 50000 n˙meros
     int n = 50000;
     int vet[n];
     gera_vetor_aleatorio(vet, n);
-//     gera_vetor_ordenado_ASC(vet, n);
-//     gera_vetor_ordenado_DESC(vet, n);
-//     imprime_vetor(vet,n);
+    // gera_vetor_ordenado_ASC(vet, n);
+    // gera_vetor_ordenado_DESC(vet, n);
+    // imprime_vetor(vet,n);
 
-    // Tempo inicial da execu√ß√£o
-    clock_t t = clock();
+    // Tempo inicial da execuÁ„o
+    float t = clock();
 
     // Ordenar vetor
-    // Do √≠ndice 0 at√© o √∫ltimo para ordenar todo o vetor
+    // Do Ìndice 0 atÈ o ˙ltimo para ordenar todo o vetor
     quickSort(vet, 0, n-1);
 
-    // Calcular o tempo total de execu√ß√£o
+    // Calcular o tempo total de execuÁ„o
     t = clock() - t;
 
-    // Exibir tempo de execu√ß√£o, n√∫mero de compara√ß√µes e de trocas
-    imprime_vetor(vet, n);
-    printf("Tempo de execucao: %li ms\n", t);  // Exibir em ms
+    // Exibir tempo de execuÁ„o, n˙mero de comparaÁıes e de trocas
+     imprime_vetor(vet, n);
+    printf("Tempo de execuÁ„o: %.3f ms\n", t/1000);  // Exibir em ms
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n", quantTrocas);
 
