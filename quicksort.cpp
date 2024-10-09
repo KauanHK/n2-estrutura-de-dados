@@ -63,6 +63,24 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 	}
 }
 
+const int ORDENADO = 1;
+const int ALEATORIO = 2;
+const int INVERTIDO = 3;
+
+void geraVetor(int *vet, int n, int opcao){
+    switch (opcao){
+        case 1:
+            gera_vetor_ordenado_ASC(vet, n);
+            break;
+        case 2:
+            gera_vetor_aleatorio(vet, n);
+            break;
+        case 3:
+            gera_vetor_ordenado_DESC(vet, n);
+            break;
+    }
+}
+
 
 // Declarando as vari?veis globais que armazenar?o
 // o n?mero de comapara??es e de trocas feitas durante a ordena??o
@@ -111,76 +129,19 @@ void quickSort(int vet[], int ini, int fim){
 }
 
 
-void geraVetor(int *vet, int n, int opcao){
-    switch (opcao){
-        case 1:
-            gera_vetor_ordenado_ASC(vet, n);
-            break;
-        case 2:
-            gera_vetor_aleatorio(vet, n);
-            break;
-        case 3:
-            gera_vetor_ordenado_DESC(vet, n);
-            break;
-    }
-}
-
-bool verificarVetor(int *vet, int n){
-
-    int elementosErrados = 0;
-    bool ordenado = true;
-
-    for (int j = 1; j < n; j++){
-        if (vet[j-1] > vet[j]){
-            // printf("Erro: %d antes de %d\n", vet[j-1], vet[j]);
-            elementosErrados++;
-            ordenado = false;
-        }
-    }
-    if (!ordenado){
-        printf("\nFalha ao ordenar vetor: %d elementos errados\n\n", elementosErrados);
-        return false;
-    }
-    return true;
-}
-
-// Função para testes para validar se o vetor está 100% ordenado
-bool validar(int *vet, int n, int opcao, int numTestes){
-
-    bool ordenado;
-    int i;
-	for (i = 0; i < numTestes; i++){
-
-		printf("%d\r", i);
-
-        geraVetor(vet, n, opcao);
-		quickSort(vet, 0, n-1);
-        ordenado = verificarVetor(vet, n);
-        if (!ordenado){
-            break;
-        }
-        
-    }
-    printf("Foram ordenados %d vetores com sucesso\n", i);
-    return true;
-}
-
 int main(){
 
     // Gerar um vetor com 50000 n?meros
     int n = 50000;
     int vet[n];
-    // gera_vetor_aleatorio(vet, n);
-    // gera_vetor_ordenado_ASC(vet, n);
-    // gera_vetor_ordenado_DESC(vet, n);
-    // imprime_vetor(vet,n);
+
+    geraVetor(vet, n, ALEATORIO);
 
     // Tempo inicial da execu??o
     float t = clock();
 
     // Ordenar vetor
-    // Do ?ndice 0 at? o ?ltimo para ordenar todo o vetor
-    geraVetor(vet, n, 1);
+    // Do indice 0 ate o ultimo para ordenar todo o vetor
     quickSort(vet, 0, n-1);
 
     // Calcular o tempo total de execu??o
@@ -191,7 +152,6 @@ int main(){
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n\n", quantTrocas);
     // imprime_vetor(vet, n);
-    // validar(vet, n, 2, 10000);
 
 
     return 0;
