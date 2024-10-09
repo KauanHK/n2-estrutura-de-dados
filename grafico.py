@@ -64,47 +64,50 @@ class Grafico:
 
     def _qs(self, ini, fim):
 
-        if ini >= fim:
-            return
-
-        pivo_index = ini + (fim - ini) // 2
-        pivo =  self.vet[pivo_index]
-
+        pivo =  self.vet[ini + (fim - ini) // 2]
         i = ini
         j = fim
+        i_ordenado = True
+        j_ordenado = True
         counter = 0
-
-        while True:
+        
+        while (i <= j):
 
             while (self.vet[i] < pivo):
-                self.exibir(i,j, pivo)
-                self.comparacoes += 1
+                
+                if self.vet[i] > self.vet[i+1]:
+                    i_ordenado = False
+
+                self.exibir(i, j, pivo)
+                self.comparacoes += 1  
                 i += 1
-            
+
             while (self.vet[j] > pivo):
-                self.exibir(i,j, pivo)
-                self.comparacoes += 1
+
+                if self.vet[j-1] > self.vet[j]:
+                    j_ordenado = False
+
+                self.exibir(i, j, pivo)
+                self.comparacoes += 1  
                 j -= 1
 
-            if i == j:
-                if counter == 0 and i == ini + (fim - ini)//2 and fim - ini > 17:
-                    return
-                break
-                
             counter += 1
 
-            if i >= j:
+            if i == j:
+                self.exibir(i, j, pivo)
                 break
-            
-            # self.exibir(i,j, pivo)
 
-            self.vet[i], self.vet[j] = self.vet[j], self.vet[i]
             self.trocas += 1
+            self.vet[i], self.vet[j] = self.vet[j], self.vet[i]
+            self.exibir(i, j, pivo)
 
-
-            # self.exibir(i,j, pivo)
+        if counter == 1 and i_ordenado and j_ordenado:
+            return
 
         if i > ini:
             self._qs(ini, i)
+        
         if i+1 < fim:
             self._qs(i+1, fim)
+        
+    
