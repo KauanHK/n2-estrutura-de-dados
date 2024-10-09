@@ -77,31 +77,18 @@ void quickSort(int vet[], int ini, int fim){
     int pivo =  vet[ini + (fim - ini) / 2];
     int i = ini;
     int j = fim;
-    bool j_ordenado = true;
-    int counter = 0;
 
     while (i <= j){
 
         while (vet[i] < pivo){
-
-            if (vet[i] > vet[i+1]){
-                i_ordenado = false;
-            }
-
             quantComparacoes++;  // Adiciona mais uma compara??o ? contagem
             i++;  // Avan?a para o pr?ximo n?mero ? direita
         }
 
         while (vet[j] > pivo){
-
-            if (vet[j-1] > vet[j]){
-                j_ordenado = false;
-            }
             quantComparacoes++;  // Adiciona mais uma compara??o ? contagem
             j--;  // Avan?a para o pr?ximo n?mero ? esquerda
         }
-
-        counter++;
 
         if (i == j){
             break;
@@ -112,10 +99,6 @@ void quickSort(int vet[], int ini, int fim){
         vet[i] = vet[j];
         vet[j] = aux;
         
-    }
-
-    if (counter == 1 and i_ordenado and j_ordenado){
-        return;
     }
 
     if (i > ini){
@@ -197,7 +180,7 @@ int main(){
 
     // Ordenar vetor
     // Do ?ndice 0 at? o ?ltimo para ordenar todo o vetor
-    geraVetor(vet, n, 2);
+    geraVetor(vet, n, 1);
     quickSort(vet, 0, n-1);
 
     // Calcular o tempo total de execu??o
@@ -208,7 +191,7 @@ int main(){
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
     printf("Quantidade de trocas: %d\n\n", quantTrocas);
     // imprime_vetor(vet, n);
-    validar(vet, n, 2, 10000);
+    // validar(vet, n, 2, 10000);
 
 
     return 0;
