@@ -12,6 +12,17 @@ R: Sim, conseguimos chegar ao resultado dos gr?ficos
    e inclusive tornar o c?digo mais eficiente, 
    principalmente para vetores j? ordenados ou semi ordenados.
 
+MELHORIAS:
+R: Nós aplicamos algumas melhorias, como a escolha do elemento do meio
+   do vetor como pivô, o que evita o caso O(n2).
+   Também melhoramos a eficiência para vetores invertidos e não ordenados
+   percorrendo o vetor com i e j.
+
+   Outras possíveis melhorias seriam:
+   - Escolher dois pivôs, dividindo o vetor em 3 partes
+   - Como o quicksort não é eficiente para ordenar pequenos vetores, usar um outro algoritmo, 
+   como o insertion sort, para vetores menores do 17, por exemplo
+
 */
 
 
@@ -90,12 +101,16 @@ int partition(int vet[], int ini, int fim){
     while (true){
 
         // i percorre o vetor até encontrar um elemento que seja maior do que o pivô
+        // Não é necessário verificar se i é menor do que fim,
+        // porque em algum momento i será igual a j
         while (vet[i] < pivo){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             i++;  // Avança para o próximo número à direita
         }
 
         // j percorre o vetor até encontrar um elemento menor do que o pivô
+        // Não é necessário verificar se j é maior do que ini,
+        // porque em algum momento i será igual a j
         while (vet[j] > pivo){
             quantComparacoes++;  // Adiciona mais uma comparação à contagem
             j--;  // Avança para o próximo número à esquerda
