@@ -63,94 +63,113 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 	}
 }
 
-const int ORDENADO = 1;
-const int ALEATORIO = 2;
-const int INVERTIDO = 3;
-
-void geraVetor(int *vet, int n, int opcao){
-    switch (opcao){
-        case 1:
-            gera_vetor_ordenado_ASC(vet, n);
-            break;
-        case 2:
-            gera_vetor_aleatorio(vet, n);
-            break;
-        case 3:
-            gera_vetor_ordenado_DESC(vet, n);
-            break;
-    }
-}
-
-
 // Declarando as vari?veis globais que armazenar?o
 // o n?mero de comapara??es e de trocas feitas durante a ordena??o
 int quantComparacoes = 0;
 int quantTrocas = 0;
 
-// Fun??o que ordena um vetor com o algoritmo quick sort
-// Recebe como par?metro o vetor que ser? ordenado
-// o ?ndice do in?cio e do fim da parte do vetor que ser? ordenada
-void quickSort(int vet[], int ini, int fim){
+// Função que determina um pivô para a subseção de um vetor e
+// desloca os números maiores do que ele para a sua direita e
+// os menores para a sua esquerda
+// Retorna o índice da posição final do pivô no vetor
+int partition(int vet[], int ini, int fim){
 
+    // Escolha do pivô
+    // O elemento do meio da subseção do vetor é selecionado
+    // Isso evita o caso O(n2) para vetores já ordenados ou invertidos
     int pivo =  vet[ini + (fim - ini) / 2];
+
+    // Índices que percorrerão a subseção do vetor
+    // i percorre da esquerda para a direita, iniciando no início da subseção
+    // j percorre da direita para a esquerda, iniciando do fim da subseção
     int i = ini;
     int j = fim;
 
-    while (i <= j){
+    // Loop while que fará a partição
+    // Deve ser interrompido caso i seja igual a j
+    while (true){
 
+        // i percorre o vetor até encontrar um elemento que seja maior do que o pivô
         while (vet[i] < pivo){
-            quantComparacoes++;  // Adiciona mais uma compara??o ? contagem
-            i++;  // Avan?a para o pr?ximo n?mero ? direita
+            quantComparacoes++;  // Adiciona mais uma comparação à contagem
+            i++;  // Avança para o próximo número à direita
         }
 
+        // j percorre o vetor até encontrar um elemento menor do que o pivô
         while (vet[j] > pivo){
-            quantComparacoes++;  // Adiciona mais uma compara??o ? contagem
-            j--;  // Avan?a para o pr?ximo n?mero ? esquerda
+            quantComparacoes++;  // Adiciona mais uma comparação à contagem
+            j--;  // Avança para o próximo número à esquerda
         }
 
+        // Caso i seja igual a j, o loop já pode ser interrompido
+        // Neste algoritmo, é impossível i ser maior do que j,
+        // pois em algum momento, i e j estarão sobre um elemento
+        // que não é maior nem menor do que o pivô, ou seja, o próprio pivô
+        // Isso significa que toda a subseção foi percorrida
         if (i == j){
             break;
         }
 
-        quantTrocas++;
+        quantTrocas++;  // Adiciona uma troca à contagem
+
+        // Inverte os valores do vetor em i e j usando uma variável auxiliar
         int aux = vet[i];
         vet[i] = vet[j];
         vet[j] = aux;
         
     }
 
-    if (i > ini){
-        quickSort(vet, ini, i);
-    }
+    // Retorna a partição, que é a posição final do pivô no vetor
+    // Poderia ser retornado o valor de j também, pois i e j têm o mesmo valor
+    return i;
+}
 
-    if (i+1 < fim){
-        quickSort(vet, i+1, fim);
+// Organiza um vetor em ordem crescente usando o algoritmo quicksort
+void quickSort(int *vet, int ini, int fim){
+
+    // Condição de parada da função recursiva
+    // Se ini for igual ou maior do j, então a subseção do vetor já está ordenada
+    if (ini < fim){
+
+        // A função da partição é executada
+        // Um elemento é escolhido como pivô, 
+        // os números maiores do que ele são deslocados para a sua direita
+        // e os menores para sua esquerda
+        // A variável 'p' armazena o índice final do pivô
+        int p = partition(vet, ini, fim);
+
+        // Chama a função recursivamente
+        // Primeiro ordena a parte à esquerda da partição, incluindo a partição
+        quickSort(vet, ini, p);
+
+        // Depois ordena a parte à direita da partição
+        quickSort(vet, p+1, fim);
     }
 }
 
-
 int main(){
 
-    // Gerar um vetor com 50000 n?meros
+    // Gerar um vetor com 50000 números
     int n = 50000;
     int vet[n];
+    // gera_vetor_ordenado_ASC(vet, n);
+    gera_vetor_aleatorio(vet, n);
+    // gera_vetor_ordenado_DESC(vet, n);
 
-    geraVetor(vet, n, ALEATORIO);
-
-    // Tempo inicial da execu??o
+    // Tempo inicial da execução
     float t = clock();
 
     // Ordenar vetor
-    // Do indice 0 ate o ultimo para ordenar todo o vetor
+    // Do índice 0 até o último para ordenar todo o vetor
     quickSort(vet, 0, n-1);
 
-    // Calcular o tempo total de execu??o
+    // Calcular o tempo total de execução
     t = clock() - t;
 
-    // Exibir tempo de execu??o, n?mero de compara??es e de trocas
+    // Exibir tempo de execução, número de comparações e de trocas
     printf("Tempo de execucao: %.3f ms\n", t/1000);  // Exibir em ms
     printf("Quantidade de Comparacoes: %d\n", quantComparacoes);
-    printf("Quantidade de trocas: %d\n\n", quantTrocas);
+    printf("Quantidade de trocas: %d\n", quantTrocas);
     // imprime_vetor(vet, n);
 
 
