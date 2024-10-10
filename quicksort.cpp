@@ -15,7 +15,7 @@ R: Sim, conseguimos chegar ao resultado dos gr?ficos
 MELHORIAS:
 R: Nós aplicamos algumas melhorias, como a escolha do elemento do meio
    do vetor como pivô, o que evita o caso O(n2).
-   Também melhoramos a eficiência para vetores invertidos e não ordenados
+   Também melhoramos a eficiência para vetores já ordenados e invertidos
    percorrendo o vetor com i e j.
 
    Outras possíveis melhorias seriam:
