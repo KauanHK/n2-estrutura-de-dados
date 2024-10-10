@@ -1,5 +1,5 @@
 /*
-PROCESSO AVALIATIVO N2 ? ESTRUTURA DE DADOS
+PROCESSO AVALIATIVO N2 - ESTRUTURA DE DADOS
 
 EQUIPE
 NOMES:
@@ -8,9 +8,9 @@ NOMES:
     Ricardo Cardoso
 
 CONSEGUIU CHEGAR NO RESULTADO?
-R: Sim, conseguimos chegar ao resultado dos gr?ficos
-   e inclusive tornar o c?digo mais eficiente, 
-   principalmente para vetores j? ordenados ou semi ordenados.
+R: Sim, conseguimos chegar ao resultado dos gráficos
+   e inclusive tornar o código mais eficiente, 
+   principalmente para vetores já ordenados ou semi ordenados.
 
 MELHORIAS:
 R: Nós aplicamos algumas melhorias, como a escolha do elemento do meio
@@ -38,14 +38,14 @@ void imprime_vetor(int *vetor, int total){
 	printf("\n");
 }
 
-//gera um vetor ordenado de forma crescente e sem repeti??o [MELHOR CASO]
+//gera um vetor ordenado de forma crescente e sem repetição [MELHOR CASO]
 void gera_vetor_ordenado_ASC(int *vetor, int n) {
 	for(int i = 0; i < n; i++){
 		vetor[i] = i;
 	}
 }
 
-//gera um vetor ordenado de forma DEcrescente e sem repeti??o [PIOR CASO]
+//gera um vetor ordenado de forma DEcrescente e sem repetição [PIOR CASO]
 void gera_vetor_ordenado_DESC(int *vetor, int n) {
 	int j = n - 1;
 	for(int i = 0; i < n; i++){
@@ -53,7 +53,7 @@ void gera_vetor_ordenado_DESC(int *vetor, int n) {
 	}
 }
 
-//gera um vetor ordenado de forma aleat?ria e sem repeti??o [CASO M?DIO]
+//gera um vetor ordenado de forma aleatória e sem repetição [CASO MÉDIO]
 void gera_vetor_aleatorio(int *vetor, int n) {
 	int j, aux;
 	
@@ -65,17 +65,17 @@ void gera_vetor_aleatorio(int *vetor, int n) {
 	
 	//aplica o algoritmo de Fisher-Yates
 	for(int i = 0; i < n; i++){
-		// gera um n?mero randomico de 0 a n -1
+		// gera um número randomico de 0 a n -1
 		j = rand() % n;
-		// troca de posi??o
+		// troca de posição
 		aux = vetor[i];
 		vetor[i] = vetor[j];
 		vetor[j] = aux;
 	}
 }
 
-// Declarando as vari?veis globais que armazenar?o
-// o n?mero de comapara??es e de trocas feitas durante a ordena??o
+// Declarando as variáveis globais que armazenarão
+// o número de comaparações e de trocas feitas durante a ordenação
 int quantComparacoes = 0;
 int quantTrocas = 0;
 
